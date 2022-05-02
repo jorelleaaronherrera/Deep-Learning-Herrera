@@ -42,5 +42,5 @@ if __name__ == "__main__":
 
     model = get_model(num_classes)
 
-    model = torch.load('model.pkl')
+    model = torch.load('model.pth')
     evaluate(model, data_loader_test, device=device)
