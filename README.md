@@ -13,7 +13,7 @@ Adjust the parameters of optimizer in line 85 for tuning
 
 I used the following for the uploaded trained model:
 
-  lr=0.0001,
+  lr=0.005,
   momentum=0.9,
   weight_decay=0.0005)
 
