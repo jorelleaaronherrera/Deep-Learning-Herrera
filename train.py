@@ -10,6 +10,8 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from engine import train_one_epoch, evaluate
 import utils
 import transforms as T
+import gdown
+import tarfile
 
 
 def get_model(num_classes):
@@ -25,6 +27,7 @@ def get_model(num_classes):
     model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
     return model
 
+
 def get_transform(train):
     transforms = []
     # converts the image, a PIL image, into a PyTorch Tensor
@@ -37,6 +40,14 @@ def get_transform(train):
 
 
 if __name__== "__main__" :
+
+    url = "https://drive.google.com/file/d/1AdMbVK110IKLG7wJKhga2N2fitV1bVPA/view?usp=sharing"
+    output = 'drinks.tar.gz'
+    gdown.download(url=url, output=output, quiet=False, fuzzy=True)
+
+    tar = tarfile.open(output)
+    tar.extractall()
+    tar.close()
 
     train_dict, train_classes = label_utils.build_label_dictionary(
         "drinks/labels_train.csv")
@@ -71,7 +82,7 @@ if __name__== "__main__" :
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.SGD(params, lr=0.005,
+    optimizer = torch.optim.SGD(params, lr=0.05,
                                 momentum=0.9, weight_decay=0.0005)
 
     # and a learning rate scheduler which decreases the learning rate by
@@ -92,4 +103,4 @@ if __name__== "__main__" :
         # evaluate on the test dataset
         evaluate(model, data_loader_test, device=device)
     
-    torch.save(model, 'model.pkl')
+    torch.save(model, 'model.pth')
