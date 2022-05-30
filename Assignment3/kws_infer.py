@@ -31,14 +31,14 @@ if __name__ == "__main__":
     n_mels = 128
     threshold = 0.6
     
-    num_classes=len(CLASSES)
-    lr=0.001
-    epochs=30
-    depth=12
-    embed_dim=128
-    head=4
-    patch_dim = 512
-    seqlen = 8
+    # num_classes=len(CLASSES)
+    # lr=0.001
+    # epochs=30
+    # depth=12
+    # embed_dim=128
+    # head=4
+    # patch_dim = 512
+    # seqlen = 8
     
     if validators.url(ckpt):
         # print('asd')
