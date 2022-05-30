@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     idx_to_class = {i: c for i, c in enumerate(CLASSES)}
 
-    ckpt = 'data/speech_commands/checkpoints/kws-best-acc.ckpt'
+    ckpt = 'https://github.com/jorelleaaronherrera/Deep-Learning-Herrera/releases/download/Assignment3/kws-best-acc.ckpt'
     # ckpt = 'resnet18-kws-best-acc.pt'
     gui = True
     n_fft = 1024
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     seqlen = 8
     
     if validators.url(ckpt):
-        print('asd')
+        # print('asd')
         checkpoint = ckpt.rsplit('/', 1)[-1]
         # check if checkpoint file exists
         if not os.path.isfile(checkpoint):
@@ -50,19 +50,22 @@ if __name__ == "__main__":
         checkpoint = ckpt
 
     print("Loading model checkpoint: ", checkpoint)
-    model = LitTransformer(num_classes=num_classes, lr=lr, epochs=epochs, 
-                           depth=depth, embed_dim=embed_dim, head=head,
-                           patch_dim=patch_dim, seqlen=seqlen,)
-    scripted_module = torch.load(checkpoint)
-    model.state_dict = scripted_module['state_dict']
-    model.optimizer_states = scripted_module['optimizer_states']
-    model.lr_schedulers = scripted_module['lr_schedulers']
-    model.NativeMixedPrecisionPlugin = scripted_module['NativeMixedPrecisionPlugin']
-    model.loops = scripted_module['loops']
-    model.callbacks = scripted_module['callbacks']
-    model.hyper_parameters = scripted_module['hyper_parameters']
+    # model = LitTransformer(num_classes=num_classes, lr=lr, epochs=epochs, 
+    #                        depth=depth, embed_dim=embed_dim, head=head,
+    #                        patch_dim=patch_dim, seqlen=seqlen,)
+    # scripted_module = torch.load(checkpoint)
+    # model.state_dict = scripted_module['state_dict']
+    # model.optimizer_states = scripted_module['optimizer_states']
+    # model.lr_schedulers = scripted_module['lr_schedulers']
+    # model.NativeMixedPrecisionPlugin = scripted_module['NativeMixedPrecisionPlugin']
+    # model.loops = scripted_module['loops']
+    # model.callbacks = scripted_module['callbacks']
+    # model.hyper_parameters = scripted_module['hyper_parameters']
+
     # model = torch.jit.load(checkpoint)
 
+    model = LitTransformer.load_from_checkpoint(checkpoint)
+    
     if gui:
         import PySimpleGUI as sg
         sample_rate = 16000
