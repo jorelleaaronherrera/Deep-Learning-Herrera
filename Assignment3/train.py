@@ -62,7 +62,7 @@ if __name__ == '__main__':
         monitor='test_acc',
         mode='max',
     )
-    model_checkpoint.FILE_EXTENSION = ".pt"
+    # model_checkpoint.FILE_EXTENSION = ".pt"
     model = LitTransformer(num_classes=num_classes, lr=lr, epochs=epochs, 
                            depth=depth, embed_dim=embed_dim, head=head,
                            patch_dim=patch_dim, seqlen=seqlen,)
